@@ -4,18 +4,18 @@ Redux 是基于 flux 的设计模式，完整的前端状态管理框架
 #### Redux 是什么？回想 React 的组件是什么样的工作模式呢？
 ```
 其实就是把 State 转换为 DOM 的结构，如果说 React 把状态 State 转换为 DOM 是在组件内部发生的话，那么 Redux 就是把
-状态 State 移到外部,就是把全局所有的状态 State 放在全局 Store 中，全局只有一个唯一的 Store，负责全局提供所有应用程序
-的状态，组件所有的状态都可以放在外部 Store 中,Store 有任何变化，组件也会自动更新，页面不同部分的更新，可能是来自
-Store 中不同的节点， Redux Store中的结构也是一个 tree 的结构，跟组件的结构 tree 是一个映射的关系，这是 Redux 的
-核心概念，管理所有React的所有状态。Redux让组件通信更加容易。是一个单向数据流的过程。
+状态 State 移到外部,就是把全局所有的状态 State 放在全局 Store 中，全局只有一个唯一的 Store，负责全局提供所有应用程
+序的状态，组件所有的状态都可以放在外部 Store 中,Store 有任何变化，组件也会自动更新，页面不同部分的更新，可能是来自
+Store 中不同的节点， Redux Store中的结构也是一个 tree 的结构，跟组件的结构 tree 是一个映射的关系，这是 Redux 的核
+心概念，管理所有React的所有状态。Redux让组件通信更加容易。是一个单向数据流的过程。
 ```
 #### Redux 有哪些特性？
 ```
 第一个特性: Single Source of Truth
-传统的1个 model 可能被多个view 应用，1个view 使用多个 model,关系错综复杂。有BUG,检查状态哪里发生错误，追踪难
-Redux 是所有的状态都放在唯一的 Store 中，是唯一状态的来源，所有的 View 都是依赖于 Store ， View 内部尽量没有自己的状态，
-当 Store 变化，View 会更新， View 上有用户操作，会通过事件通知 Store 进行变化，让整个应用程序，变得更加容易理解和追踪。
-当有BUG，检查当前的状态就可以很容易定位追踪
+传统的1个 model 可能被多个view 应用，1个view 使用多个 model,关系错综复杂。有BUG,检查状态哪里发生错误，追踪难 Redux 
+是所有的状态都放在唯一的 Store 中，是唯一状态的来源，所有的 View 都是依赖于 Store ， View 内部尽量没有自己的状态，
+当 Store 变化，View 会更新， View 上有用户操作，会通过事件通知 Store 进行变化，让整个应用程序，变得更加容易理解和追
+踪。当有BUG，检查当前的状态就可以很容易定位追踪
 
 第二个特性:可预测性  state + action = new state
 
@@ -39,40 +39,43 @@ Redux 是所有的状态都放在唯一的 Store 中，是唯一状态的来源�
 通过  Reducer
 
 ```
+```
 Redux 是独立于UI 框架之外的状态管理框架
 Redux 跟UI没有直接关系，是可以完全脱离UI去进行运行的；在 nodejs 中它也是直接执行的，所以它是通用的状态管理框架
 Redux 跟 React 一起的使用场景比较多，所以大家认为Redux 跟 React 是很好的结合。
-
+```
 # Redux(3) :在React中使用Redux
 ```
 通过连接组件react-redux
 通过 connect 方法连接到 store 上
 
 基本语法：
-首先定义了一个组件，组件需要用到 store 上的节点，mapStateToProps 定义了组件用到哪些节点
-mapDispatchToProps 把 actions 绑定到组件上面，这个时候组件上就可以通过 actions 去访问所有的 Redux 中的 actions 
-最后通过高阶组件方式去connect 一个已有的组件，connect 首先是接收两个参数，然后形成一个函数，函数再去调 SidePanel,形成一个高阶组件
+首先定义了一个组件，组件需要用到 store 上的节点，mapStateToProps 定义了组件用到哪些节点;mapDispatchToProps 把 
+actions 绑定到组件上面，这个时候组件上就可以通过 actions 去访问所有的 Redux 中的 actions 最后通过高阶组件方式
+去connect 一个已有的组件，connect 首先是接收两个参数，然后形成一个函数，函数再去调 SidePanel,形成一个高阶组件;
 这是 redux 的实现原理：如何connect 一个已有的组件到 store
 ```
 
 
 #### connect的工作原理:高阶组件
- connect 之后，会在数据逻辑里面去访问store 以及访问 action ,
+```
+connect 之后，会在数据逻辑里面去访问store 以及访问 action ,
 redux 的自身逻辑：触发action ==> 到reducers ==> 然后更新 store，store会传到高阶组件 ==》高阶组件传到需要用到 store 数据的组件上面
-
+```
 #### 性能问题：
-如果把整个 store 都绑定到组件上，store中任何节点变化都会触发组件的更新
-绑定到 count 的话，只有 count发生变化，组件才更新，在这个方法中，必须把访问的节点限定在最小范围，限定到必须的范围，
-才能让组件高性能的状态
-
+```
+如果把整个 store 都绑定到组件上，store中任何节点变化都会触发组件的更新；绑定到 count 的话，只有 count发生变化，
+组件才更新，在这个方法中，必须把访问的节点限定在最小范围，限定到必须的范围，才能让组件高性能的状态。
+```
 #### store 里面如何更新store呢？
+```
 原理：那就必须访问 redux 的 action。
 具体：提供 mapDispatchToProps 的方法，这个方法接收的参数是Dispatch，然后调用的是
 
-组件上的属性是由自己定义的函数传进来的，函数中的方法绑定到上面的属性，定义好之后，就可以调用 connect 来完成高阶组件的创建
- connect 接收函数，再传入已有的组件，在counter 上就会显示属性。
+组件上的属性是由自己定义的函数传进来的，函数中的方法绑定到上面的属性，定义好之后，就可以调用 connect 来完成高阶组件
+的创建，connect 接收函数，再传入已有的组件，在counter 上就会显示属性。
 
-
+```
 # Redux(4) :理解异步Action , Redux中间件
 #### 理解异步Action 
 ```
@@ -80,22 +83,21 @@ View 点击一个按钮，获取API的数据，会发送一个Ajx的请求，这
 不是在View 点击一个按钮，触发 Action 直接到 Store 的
 
 异步Action 不是特殊类型的 Action，而是 几个同步的Action的组合使用
-
-Redux 的工作流程是怎样的呢？
+```
+#### Redux 的工作流程是怎样的呢？
+```
 在 View 上点击 button ==>触发 Action （这个Action不是标准的 Javascrict 对象，描述如何发送Ajx请求以及如何处理结果的）
-==>再到 Middlewares 中间件==> API 访问成功（发送成功的 Action 的结果，否则发失败的 Action  ）==> Dispatcher不同的Action出去 
-==> 真正把结果传到 Redecer ==>更新Store
-
-
-
+==>再到 Middlewares 中间件==> API 访问成功（发送成功的 Action 的结果，否则发失败的 Action  ）==> Dispatcher不同的
+Action出去 ==> 真正把结果传到 Redecer ==>更新Store
 ```
 #### Redux中间件
-中间件 Middlewares 作用：截获某种特殊类型的 Action ，先进行预处理，才会真正把结果传到Reducer来更新Store；比如Ajx请求的 Action，
-
+```
+中间件 Middlewares 作用：截获某种特殊类型的 Action ，先进行预处理，才会真正把结果传到Reducer来更新Store；
+比如Ajx请求的 Action，
 
 1.截获action 
 2.发出action
-
+```
 
 # Redux(5) :如何组织Action和Reducer
 #### 标准"形式Redux Action的问题, 
@@ -109,8 +111,11 @@ Redux 的工作流程是怎样的呢？
 
 
 # Redux(6) :理解不可变数据( Immutability )
+
 #### 什么是不可变数据：
+```
 不可以直接修改它的值，而是通过复制它的值产生新对象的方式，来得到新的数据，包含了你要修改的部分
+```
 #### 为何需要不可变数据
 ```
 1.性能优化
@@ -118,13 +123,16 @@ Redux 的工作流程是怎样的呢？
 3.易于推测
 ```
 #### 如何操作不可变数据
+
 根据实际场景选择不同的操作方式
+
 ```
 1·原生写法: {...}, Object.assign   ------------延展属性操作符：{...}
 2.immutability-helper
 3.immer
 ```
 # React Router (1) :路由不只是页面切换,更是代码组织方式
+
 #### 为什么需要路由
 ```
 1,单页应用需要进行页面切换 
@@ -132,16 +140,17 @@ Redux 的工作流程是怎样的呢？
 3,更有语义的组织资源
 ```
 #### 路由实现的基本架构
+```
 1.路由定义
 2.Topic 组件 （id 参数）
 3.List 组件 （topics）
 4.About 组件 (about)
-
+```
+```
 通过React Router 的解析，根据URL的地址来返回不同的组件，定义一个组件容器，来render,组件容器是页面布局的一部分，
-由 React Router来控制组件容器展示什么，当URL变化的时候，知识组件容器里面的内容发生变化，导航栏，和 head(头部)是不发生变化的
-
-React Router 是在组件容器中根据URL来判断当前页面显示什么的组件，去实现路由的功能。
-
+由 React Router来控制组件容器展示什么的组件，当URL变化的时候，只是组件容器里面的内容发生变化，导航栏，和 head
+是不发生变化的。React Router 是在组件容器中根据URL来判断当前页面显示什么的组件，去实现路由的功能。
+```
 #### React Router的特性
 ```
 1.声明式路由定义 
@@ -151,7 +160,7 @@ React Router 是在组件容器中根据URL来判断当前页面显示什么的�
 ```
 1.URL路径   (通过斜杠/)
 2.hash路由  （通过#号实现的，#号开始之后，再跟具体路径的，这种方式主要是去支持低版本的浏览器）
-3·内存路由   （页面内容发生改变，路由的状态是存在内存里面的，路由并不会反应到URL上。通常是服务器端渲染的时候才有用，前端也有用）
+3·内存路由（页面内容发生改变，路由的状态是存在内存里面的，路由并不会反应到URL上。通常是服务器端渲染的时候才有用，前端也有用）
 ```
 #### 基于路由配置进行资源组织
 ```
@@ -173,20 +182,23 @@ React Router 是在组件容器中根据URL来判断当前页面显示什么的�
 5. <Route> :路由配置的核心标记,路径匹配时显示对应组件  
 exact 是否精确匹配pach路径，斜杠后面若有其他内容,就不会匹配这条Router；不写 exact 的话所有路由都会匹配到{home}的标记；
 注意：定义了两个 Route，它的pach都可以匹配当前的路径，那么两个组件都会同时显示
-后端路由只有一个 URL 匹配路由表中的某配置，React Route 中更具灵活性，如果你的URL中匹配了多个 Route，那么每个组建都会显示。
+后端路由只有一个UR 匹配路由表中的某配置，React Route中更具灵活性，如果你的URL中匹配了多个Route，那么每个组建都会显示。
 
 6. <Switch> :只显示第一个匹配的路由，若第一个被匹配，那么后面的 Route 都不会render；
 ```
 # React Router (2) :参数定义,嵌套路由的使用场景
 
 #### 通过URL传递参数,
+```
 1. 如何通过URL传递参数: <Route path="/topic/id".../>
 2. 如何获取参数: this.props.match.params
 3. https://github.com/pillarjs/path-to-regexp
+```
 #### 嵌套路由
+```
 1. 每个React组件都可以是路由容器 
 2. React Router的声明式语法可以方便的定义嵌套路由 。
-
+```
 
 # UI组件库对比和介绍：Ant.Design，Material UI，Semantic UI
 
