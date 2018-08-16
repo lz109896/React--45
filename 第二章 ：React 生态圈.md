@@ -214,24 +214,43 @@ exact 是否精确匹配pach路径，斜杠后面若有其他内容,就不会匹
 
 
 # 常用开发调试工具：ESLint，Prettier，React DevTool，Redux DevTool
+```
+ESLint：语法分隔检查
+Prettier：格式化代码工具
+React DevTool：调试 React 的 chrome 的插件
+Redux DevTool：调试 React 的 chrome 的 插件
+```
+#### ESLint
+```
+1. 使用.eslintrc进行规则的配置
+2. 使用airbnb的JavaScript代码风格
+
+```
+
+#### Prettier
+```
+1,代码格式化的神器
+2,保证更容易写出风格一致的代码
+
+```
+#### React DevTool
+```
 
 
 
+```
+#### Redux DevTool
+```
 
 
 
+```
+#### 
+```
 
 
 
-
-
-
-
-
-
-
-
-
+```
 
 
 
