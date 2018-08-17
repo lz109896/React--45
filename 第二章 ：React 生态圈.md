@@ -246,9 +246,25 @@ exact 是否精确匹配pach路径，斜杠后面若有其他内容,就不会匹
 3.使用prefetch预加载目标资源 
 4.使用replace属性替换URL
 ```
-
 # 使用Jest，Enzyme等工具进行单元测试
 
+
+#### React让前端单元测试变得容易
+```
+1.React应用很少需要访问浏览器API
+2.虚拟DOM可以在NodeJS环境运行和测试
+3.Redux隔离了状态管理,纯数据层单元测试
+```
+#### 单元测试涉及的工具
+```
+1. Jest: Facebook新开源的JS单元测试框架(0配置。可直接开始测试)
+2. JS DOM:浏览器环境的NodeJS模拟（访问轻量级API程序不会出错）
+3. Enzyme : React组件渲染和测试
+4. nock:模拟HTTP请求
+5. sinon:函数模拟和调用跟踪
+6. istanbul:单元测试覆盖率
+
+```
 
 
 # 常用开发调试工具：ESLint，Prettier，React DevTool，Redux DevTool
