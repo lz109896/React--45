@@ -137,13 +137,17 @@ const element = <li>{props.message}</li>;
 3.JSX标记可以直接使用属性语法,例如<menu.lItem /
 ```
 
-# 第四节 React组件的生命周期及其使用场景
+# 03 | React组件的生命周期及其使用场景
+#### React组件的生命周期有三个阶段
+```
+1."Render阶段"纯净且没有副作用。可能会被React暂停，中止或重新启动.
+2."Pre-commit阶段".可以读取DOM。
+3."Commit阶段" ,可以使用DOM,运行副作用、安排更新。
 
+```
+## React组件的生命周期的组件方法及特性
 
-
-
-
-####  constructor
+#### constructor
 ```
 1·用于初始化内部状态,很少使用
 2·唯一可以直接修改state的地方
@@ -155,7 +159,7 @@ const element = <li>{props.message}</li>;
 3.每次render都会调用 
 4.典型场景:表单控件获取默认值
 ```
-####  componentDidMount
+#### componentDidMount
 ```
 1.UI渲染完成后调用 
 2.只执行一次 
@@ -183,7 +187,19 @@ const element = <li>{props.message}</li>;
 2.一般可以由PureComponent自动实现 
 3.典型场景:性能优化
 ```
+
+
+
+
+
+
+# 05 | 理解 Virtual DOM 及 key 属性的作用
+
+
+
 ####  JSX的运行基础: Virtual DOM
+
+
 ####  虚拟DOM是如何工作的
 
 
