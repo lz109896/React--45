@@ -16,7 +16,7 @@ React 是由Fackbook工程师开发（消息状态错误，上线后检查还是
 4.完善的错误提示
 ```
 #### React解决了UI细节问题,数据模型如何解决?
-```
+```js
 1.传统MVC难以扩展和维护(很难追踪是model出现错误还是view上出错)
 2.Flux架构:单向数据流:
 WebAPI==>Web API Utils==>Action Creators==>Action==>Dispatcher==>Callbacks==>Store==>Changg Events +Store Queries
@@ -42,7 +42,7 @@ WebAPI==>Web API Utils==>Action Creators==>Action==>Dispatcher==>Callbacks==>Sto
 > 一般都是 VSCode，不过你也可以尝试 Rekit
 
 #### 老师这里的整体刷新是整个页面刷新嘛，如果这个页面有多个http后端请求，难道所有的http全都要刷新一次嘛？ 这里的store存储的是什么，具体如何通过状态的改变去感知页面的改变，求详解
-```
+```js
 这里说的整体刷新是指逻辑上纯 UI 的重绘，HTTP 请求一般都在组件的 componentDidMount 或者 componentDidUpdate 中
 根据条件来发送，只要逻辑正确，不会每次都重新发起。store 存储的是应用程序状态，包括 UI 状态，例如某个树节点是否展
 开，和业务数据状态，比如一个商品列表。页面是根据状态来渲染的，state -> view。 只要通过组件的 this.setState 方法
@@ -71,32 +71,57 @@ props（外部属性） + state（内部状态） => View（视图）
 3.考虑组件的交互方式
 ```
 ####  受控组件vs非受控组件
+> 受控组件:表单元素状态由使用者维护
+```js
+<input
+ type="text"
+ value={this.state.value}
+ onChange={evt =>
+  this.setState({value:evt.target.value})
+ }
+/>
+
 ```
-受控组件:表单元素状态由使用者维护
-非受控组件:表单元素状态DOM自身维护
+> 非受控组件:表单元素状态DOM自身维护
+```js
+<input
+ type="text"
+ ref={nade => this.input = nade}
+/>
 ```
 ####  何时创建组件:单一职责原则
 ```
 1.每个组件只做一件事
 2.如果组件变得复杂,那么应该拆分成小组件
+
+
+分成小组件好处：1.提高性能，一个组件大，当发生改变时，整个组件都需要刷新。2.复杂度拆分到不同的地方去
 ```
 ####  数据状态管理: DRY原则 
 ```
-1.能计算得到的状态就不要单独存储 
+1.能计算得到的状态就不要单独存储 （用的时候才计算它，通过其他组件计算得到）
 2.组件尽量无状态,所需数据通过 props 获取
 ```
 
-# 第三节 理解JSX :不是模板语言,只是一种语法糖
+# 03 | 理解JSX :不是模板语言,只是一种语法糖
 ```
 JSX:在JavaScript代码中直接写HTML标记
 JSX的本质:动态创建组件的语法糖
 ```
 ####  在JSX中使用表达式
 ```
-1, JSX本身也是表达式
-2,在属性中使用表达式
-3,延展属性
-4,表达式作为子元素
+1.JSX本身也是表达式    
+const element = <h1>Hello, world!</hl>;
+
+2.在属性中使用表达式
+<MyComponent foo={1 + 2 + 3 +4} />
+
+3.延展属性
+const props = {firstName: 'Ben', lastName: 'Hector'};
+const greeting = <Greeting {...props} />;
+
+4.表达式作为子元素
+const element = <li>{props.message}</li>;
 ```
 ####  JSX优点
 ```
